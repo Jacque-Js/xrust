@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="supported-color-schemes" content="light dark" />
+    <meta name="darkreader-lock" />
+    <meta name="theme-color" content="#f3ede3" />
+    <meta name="description" content="ХРУСТ — кафе-пекарня. Меню, контакты и заказ." />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" as="image" href="/img/interior.webp" type="image/webp" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>ХРУСТ — кафе-пекарня</title>
+    <!--
+      Samsung Internet и другие браузеры с «тёмным режимом для сайтов» не перекрашивают страницу,
+      если у неё есть своя тёмная тема. Правило стоит прямо здесь, чтобы браузер увидел его сразу при загрузке,
+      ещё до основных стилей. В тёмной теме — те же бежевые цвета: дизайн одинаковый у всех.
+    -->
+    <style>
+      :root { color-scheme: light dark; }
+      html, body { background: #f3ede3 !important; color: #222820 !important; }
+      @media (prefers-color-scheme: dark) {
+        :root { color-scheme: light dark; }
+        html, body { background: #f3ede3 !important; color: #222820 !important; }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

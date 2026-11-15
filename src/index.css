@@ -1,0 +1,170 @@
+/* important: все цвета сайта с !important — иначе тёмный режим Samsung Internet перебивает их своими стилями */
+@import "tailwindcss" important;
+
+@theme {
+  /* Палитра снята с интерьера: оливковая стена, янтарный неон, пыльно-розовые кресла, тёмное дерево */
+  --color-cream: #f3ede3;
+  --color-cream-2: #e8e1d3;
+  --color-card: #faf6ef;
+  --color-line: #dcd3c2;
+  --color-ink: #222820;
+  --color-ink-2: #434c3f;
+  --color-muted: #7c7a68;
+  --color-espresso: #1c231d;
+  --color-espresso-2: #2a3329;
+  --color-olive: #3d4a3a;
+  --color-caramel: #eba54d;
+  --color-amber: #f5b45a;
+  --color-rose: #c98272;
+  --color-latte: #efcfc2;
+
+  --font-serif: "Lora", Georgia, "Times New Roman", serif;
+  --font-sans: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --animate-fade-up: fade-up 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-fade-in: fade-in 0.35s ease both;
+  --animate-sheet-up: sheet-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-bump: bump 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+  --animate-nudge: nudge 1.8s ease-in-out infinite;
+  --animate-hero-zoom: hero-zoom 9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-glow: glow 4s ease-in-out infinite;
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes sheet-up {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes bump {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.08); }
+    100% { transform: scale(1); }
+  }
+  @keyframes hero-zoom {
+    from { transform: scale(1.1); opacity: 0; }
+    12% { opacity: 1; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  @keyframes glow {
+    0%, 100% { text-shadow: 0 0 18px rgba(245, 180, 90, 0.45), 0 0 46px rgba(245, 180, 90, 0.22); }
+    50% { text-shadow: 0 0 22px rgba(245, 180, 90, 0.6), 0 0 60px rgba(245, 180, 90, 0.3); }
+  }
+  @keyframes nudge {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+  }
+}
+
+html {
+  /* Сайт сообщает, что сам «умеет» тёмную тему — тогда Chrome, Samsung Internet и Яндекс его не затемняют */
+  color-scheme: light dark;
+  background: #121812 !important;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  background: #121812 !important;
+  color: var(--color-ink) !important;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Цвета фона с переливами — тёплый бежевый свет, одинаковый на всех устройствах */
+:root {
+  --aurora-base: linear-gradient(165deg, #f6efe4 0%, #f1e6dc 45%, #ece7da 100%);
+  --aurora-a: rgba(240, 165, 70, 0.85);
+  --aurora-b: rgba(214, 128, 112, 0.75);
+  --aurora-c: rgba(118, 144, 98, 0.6);
+}
+
+/* В тёмной теме телефона — ровно те же цвета, что и в светлой: дизайн один для всех.
+   Само это правило — сигнал браузеру, что перекрашивать сайт не нужно. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-cream: #f3ede3;
+    --color-cream-2: #e8e1d3;
+    --color-card: #faf6ef;
+    --color-line: #dcd3c2;
+    --color-ink: #222820;
+    --color-ink-2: #434c3f;
+    --color-muted: #7c7a68;
+  }
+  html { background: #121812 !important; }
+  body { background: #121812 !important; color: var(--color-ink) !important; }
+  input, textarea, select, button { color: inherit !important; }
+}
+
+/* Переливающийся фон страниц */
+.aurora {
+  position: fixed;
+  inset: 0 auto 0 50%;
+  width: 100%;
+  max-width: 480px;
+  transform: translateX(-50%);
+  z-index: -10;
+  overflow: hidden;
+  pointer-events: none;
+  background: var(--aurora-base) !important;
+}
+.aurora::before,
+.aurora::after,
+.aurora > span {
+  content: "";
+  position: absolute;
+  width: 150%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  will-change: transform;
+}
+.aurora::before {
+  top: -35%;
+  left: -45%;
+  background: radial-gradient(closest-side, var(--aurora-a), transparent 70%) !important;
+  animation: aurora-a 16s ease-in-out infinite alternate;
+}
+.aurora::after {
+  bottom: -40%;
+  right: -50%;
+  background: radial-gradient(closest-side, var(--aurora-b), transparent 70%) !important;
+  animation: aurora-b 20s ease-in-out infinite alternate;
+}
+.aurora > span {
+  top: 25%;
+  left: 10%;
+  background: radial-gradient(closest-side, var(--aurora-c), transparent 70%) !important;
+  animation: aurora-c 24s ease-in-out infinite alternate;
+}
+@keyframes aurora-a {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(40%, 30%) scale(1.15); }
+  100% { transform: translate(15%, 70%) scale(0.95); }
+}
+@keyframes aurora-b {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-35%, -40%) scale(1.1); }
+  100% { transform: translate(-10%, -75%) scale(1.2); }
+}
+@keyframes aurora-c {
+  0% { transform: translate(0, 0) scale(0.9); }
+  50% { transform: translate(-30%, -25%) scale(1.15); }
+  100% { transform: translate(25%, 15%) scale(1); }
+}
+
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+.press { transition: transform 0.15s ease, background-color 0.2s ease, color 0.2s ease, opacity 0.2s ease; }
+.press:active { transform: scale(0.96); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
